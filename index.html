@@ -12,7 +12,36 @@
   </header>
 
   <main class="center-page" role="main">
-    <img id="logo" src="logo.png" alt="Devant logo" />
+    <!-- Inline SVG logo: shield + compass + arrow, followed by DEVANT wordmark -->
+    <div class="logo-wrap" aria-hidden="false">
+      <svg id="logo" width="260" height="120" viewBox="0 0 520 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Devant logo">
+        <g fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-width="8">
+          <!-- Shield outline -->
+          <path d="M130 20 L220 20 L270 46 L270 110 C270 170 210 202 220 214 C210 202 150 170 150 110 L150 46 Z" stroke="#FFFFFF" fill="none" transform="translate(20,10)" />
+        </g>
+
+        <!-- Compass rose (center) -->
+        <g transform="translate(170,70)" fill="#FFFFFF" stroke="none">
+          <!-- outer ring cutout -->
+          <circle cx="0" cy="0" r="48" stroke="#FFFFFF" stroke-width="6" fill="none" />
+          <!-- cardinal star (diamond shapes) -->
+          <path d="M0 -62 L14 -6 L62 0 L14 6 L0 62 L-14 6 L-62 0 L-14 -6 Z" fill="#FFFFFF" />
+          <!-- inner negative ring to create cutouts (simulate ring segments) -->
+          <circle cx="0" cy="0" r="22" fill="#000000" />
+        </g>
+
+        <!-- Vertical arrow extending upward from shield top -->
+        <g transform="translate(110,18)" fill="#FFFFFF">
+          <path d="M2 -8 L10 10 L6 10 L6 46 L-6 46 L-6 10 L-10 10 Z" transform="translate(140,10) rotate(0) scale(1,1)" />
+        </g>
+
+        <!-- Wordmark: DEVANT -->
+        <g transform="translate(320,70)" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="92">
+          <text x="0" y="30">DEVANT</text>
+        </g>
+      </svg>
+    </div>
+
     <form id="searchForm" class="search-form" role="search" onsubmit="return onSearch(event)">
       <label for="q" class="visually-hidden">Search</label>
       <input id="q" name="q" type="search" placeholder="Search Devant or the web" autocomplete="off" />
