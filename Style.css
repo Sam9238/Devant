@@ -50,12 +50,13 @@ body{
 
 /* Logo */
 #logo{
-  width:220px;
+  width:520px;        /* desktop width for your wide logo */
+  max-width:80vw;     /* responsive shrink on small screens */
   height:auto;
-  max-width:60vw;
   display:block;
   margin:0 auto;
-  filter:drop-shadow(0 8px 20px rgba(0,0,0,0.7));
+  object-fit:contain;
+  /* If your logo PNG has a black background you can keep it; if it has transparency, it will show the page background */
 }
 
 /* Search form */
@@ -87,77 +88,6 @@ body{
 }
 .search-form input::placeholder{color:var(--muted)}
 
-/* Modal */
-.modal{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,0.5);
-  z-index:40;
-  padding:24px;
-}
-.modal[aria-hidden="false"]{display:flex}
-.modal-panel{
-  width:520px;
-  max-width:100%;
-  background:var(--panel);
-  border:1px solid var(--panel-border);
-  border-radius:12px;
-  color:var(--text);
-  box-shadow:0 20px 50px rgba(0,0,0,0.6);
-  overflow:hidden;
-}
-.modal-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:14px 16px;
-  border-bottom:1px solid rgba(255,255,255,0.03);
-}
-.modal-content{padding:16px}
-
-/* Options */
-.option{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:10px 0;
-  border-bottom:1px solid rgba(255,255,255,0.02);
-}
-.option span{color:var(--text)}
-.option input[type="checkbox"]{width:18px;height:18px}
-.option select{
-  background:transparent;
-  color:var(--text);
-  border:1px solid rgba(255,255,255,0.04);
-  padding:6px 8px;
-  border-radius:6px;
-}
-
-/* Actions */
-.modal-actions{
-  display:flex;
-  gap:8px;
-  justify-content:flex-end;
-  padding-top:12px;
-}
-.modal-actions button{
-  background:transparent;
-  color:var(--text);
-  border:1px solid rgba(255,255,255,0.06);
-  padding:8px 12px;
-  border-radius:8px;
-  cursor:pointer;
-}
-.modal-actions #saveSettings{
-  background:var(--accent);
-  border-color:var(--accent);
-  color:white;
-}
-
 /* Accessibility helper */
 .visually-hidden{
   position:absolute!important;
@@ -167,8 +97,10 @@ body{
 }
 
 /* Responsive tweaks */
+@media (max-width:720px){
+  #logo{width:420px}
+}
 @media (max-width:480px){
-  #logo{width:160px}
+  #logo{width:280px}
   .search-form input[type="search"]{width:100%}
-  .modal-panel{width:100%}
 }
