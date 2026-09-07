@@ -37,7 +37,7 @@ body{
 }
 .icon-button:focus{outline:2px solid rgba(255,255,255,0.12)}
 
-/* Settings popover (Google-like compact panel) */
+/* Settings popover */
 .settings-panel{
   display:none;
   position:fixed;
@@ -54,6 +54,7 @@ body{
 }
 .settings-panel[aria-hidden="false"]{display:block}
 
+/* ... other settings styles remain same ... */
 .settings-header{
   display:flex;
   align-items:center;
@@ -61,60 +62,16 @@ body{
   padding:8px 12px;
   border-bottom:1px solid rgba(255,255,255,0.03);
 }
-.settings-header h3{
-  margin:0;
-  font-size:16px;
-  font-weight:600;
-}
-.close-btn{
-  background:transparent;
-  border:none;
-  color:var(--text);
-  font-size:16px;
-  cursor:pointer;
-}
-
-/* Settings form */
+.settings-header h3{ margin:0; font-size:16px; font-weight:600; }
+.close-btn{ background:transparent; border:none; color:var(--text); font-size:16px; cursor:pointer; }
 .settings-form{padding:10px 8px}
-.setting-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:10px 6px;
-  border-bottom:1px solid rgba(255,255,255,0.02);
-}
+.setting-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 6px; border-bottom:1px solid rgba(255,255,255,0.02); }
 .setting-row label{font-size:14px}
-.setting-row select,
-.setting-row input[type="checkbox"]{
-  background:transparent;
-  color:var(--text);
-  border:1px solid rgba(255,255,255,0.04);
-  padding:6px 8px;
-  border-radius:6px;
-}
+.setting-row select, .setting-row input[type="checkbox"]{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.04); padding:6px 8px; border-radius:6px; }
 .theme-options label{margin-right:8px; font-size:14px}
-
-/* Buttons */
-.settings-actions{
-  display:flex;
-  gap:8px;
-  justify-content:flex-end;
-  padding-top:8px;
-}
-.settings-actions button{
-  background:transparent;
-  color:var(--text);
-  border:1px solid rgba(255,255,255,0.06);
-  padding:8px 12px;
-  border-radius:8px;
-  cursor:pointer;
-}
-#saveSettings{
-  background:var(--accent);
-  border-color:var(--accent);
-  color:white;
-}
+.settings-actions{ display:flex; gap:8px; justify-content:flex-end; padding-top:8px; }
+.settings-actions button{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.06); padding:8px 12px; border-radius:8px; cursor:pointer; }
+#saveSettings{ background:var(--accent); border-color:var(--accent); color:white; }
 
 /* Center layout */
 .center-page{
@@ -128,16 +85,25 @@ body{
   text-align:center;
 }
 
-/* Logo */
-.logo-wrap{display:block; margin:0 auto;}
-#logo{
-  width:620px;
-  max-width:88vw;
+/* Logo fixes:
+   - Use img if present and scale responsively
+   - Ensure no cropping and enough space at top so settings button won't overlap
+*/
+.logo-wrap{
+  width:100%;
+  max-width:900px;    /* control max width */
+  padding-top: 8px;   /* avoid overlap with topbar */
+  box-sizing:border-box;
+  margin:0 auto;
+}
+#logoImg{
+  width:100%;
   height:auto;
   display:block;
-  margin:0 auto;
+  object-fit:contain;
   filter:drop-shadow(0 8px 24px rgba(0,0,0,0.6));
 }
+#logoSvg{ width:100%; height:auto; }
 
 /* Search form */
 .search-form{
@@ -178,11 +144,11 @@ body{
 
 /* Responsive tweaks */
 @media (max-width:720px){
-  #logo{width:480px}
-  .settings-panel{right:10px; width:300px}
+  .logo-wrap{ max-width:720px; }
+  .settings-panel{ right:10px; width:300px; }
 }
 @media (max-width:480px){
-  #logo{width:320px}
-  .search-form input[type="search"]{width:100%}
-  .settings-panel{right:8px; width:92vw}
+  .logo-wrap{ max-width:360px; }
+  .search-form input[type="search"]{ width:100%; }
+  .settings-panel{ right:8px; width:92vw }
 }
