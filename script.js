@@ -1,38 +1,49 @@
-// Replace/insert this in your script.js
+// --- UI helpers for hero + search suggestions ---
+(function(){
+  // sample suggestions - replace with real suggestions or API later
+  const SAMPLE = [
+    'Devant docs',
+    'Devant GitHub',
+    'Devant support',
+    'Devant API',
+    'Devant tutorials',
+    'Devant features'
+  ];
 
-function setTheme(theme) {
-  if (theme === 'light') {
-    document.documentElement.style.setProperty('--bg', '#ffffff');        // page background
-    document.documentElement.style.setProperty('--panel', '#f6f7f9');     // panel/background elements
-    document.documentElement.style.setProperty('--text', '#000000');      // primary text becomes black
-    document.documentElement.style.setProperty('--panel-border', 'rgba(0,0,0,0.08)');
-  } else { // dark
-    document.documentElement.style.setProperty('--bg', '#000000');
-    document.documentElement.style.setProperty('--panel', '#121212');
-    document.documentElement.style.setProperty('--text', '#ffffff');
-    document.documentElement.style.setProperty('--panel-border', 'rgba(255,255,255,0.06)');
+  const q = document.getElementById('q');
+  const list = document.getElementById('suggestionsList');
+
+  function renderSuggestions(items){
+    if (!list) return;
+    list.innerHTML = '';
+    if (!items || items.length === 0){ list.hidden = true; return; }
+    items.forEach((it, i) => {
+      const li = document.createElement('li');
+      li.textContent = it;
+      li.setAttribute('role','option');
+      li.tabIndex = 0;
+      li.addEventListener('click', () => { q.value = it; list.hidden = true; q.focus(); });
+      li.addEventListener('keydown', (e) => { if (e.key==='Enter') { q.value = it; list.hidden = true; q.form.requestSubmit(); }});
+      list.appendChild(li);
+    });
+    list.hidden = false;
   }
-}
 
-// Keep applySettings but delegate to setTheme (so existing code that calls applySettings continues to work)
-function applySettings(s) {
-  if (!s) return;
-  setTheme(s.theme || 'dark');
+  if (q){
+    q.addEventListener('input', (e) => {
+      const v = (e.target.value || '').trim().toLowerCase();
+      if (!v){ renderSuggestions([]); return; }
+      // filter SAMPLE for now; replace with API call later
+      const matches = SAMPLE.filter(s => s.toLowerCase().includes(v)).slice(0,6);
+      renderSuggestions(matches);
+    });
 
-  // future: handle suggestions / safesearch etc.
-}
+    // hide suggestions on blur (small delay to allow click)
+    q.addEventListener('blur', () => setTimeout(()=>{ if (list) list.hidden = true; }, 150));
+  }
 
-// Make the theme radios apply immediately when toggled (so user sees the color switch right away)
-document.querySelectorAll('input[name="theme"]').forEach(radio => {
-  radio.addEventListener('change', (e) => {
-    const t = e.target.value;
-    setTheme(t);
-    // optionally update localStorage immediately so the change persists without pressing Save:
-    try {
-      const raw = localStorage.getItem('devant_settings');
-      const settings = raw ? JSON.parse(raw) : {};
-      settings.theme = t;
-      localStorage.setItem('devant_settings', JSON.stringify(settings));
-    } catch (err) { /* ignore storage errors */ }
-  });
-});
+  // Example CTA handlers
+  document.getElementById('getStartedBtn')?.addEventListener('click', (e) => { e.preventDefault(); window.open('https://github.com/Sam9238/Devant', '_blank'); });
+  document.getElementById('docsBtn')?.addEventListener('click', (e) => { e.preventDefault(); window.open('https://github.com/Sam9238/Devant#README', '_blank'); });
+
+})();
