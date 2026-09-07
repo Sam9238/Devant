@@ -1,6 +1,7 @@
-// Settings popover + localStorage + theme application + logo fallback
-
+// Settings + localStorage + theme + logo fallback + debug console log
 (function(){
+  console.log('[Devant] script.js loaded');
+
   const settingsBtn = document.getElementById('settingsBtn');
   const settingsPanel = document.getElementById('settingsPanel');
   const closeSettings = document.getElementById('closeSettings');
@@ -8,7 +9,6 @@
   const cancelSettings = document.getElementById('cancelSettings');
   const settingsForm = document.getElementById('settingsForm');
 
-  // Safe-guards in case elements are missing
   function el(id){ return document.getElementById(id); }
 
   function openSettings(){
@@ -31,14 +31,16 @@
       const hidden = settingsPanel.getAttribute('aria-hidden') === 'true' || !settingsPanel.getAttribute('aria-hidden');
       if (hidden) openSettings(); else closeSettingsPanel();
     });
+  } else {
+    console.warn('[Devant] settingsBtn not found');
   }
+
   if (closeSettings) closeSettings.addEventListener('click', closeSettingsPanel);
   if (cancelSettings) cancelSettings.addEventListener('click', () => {
     loadSettingsIntoForm();
     closeSettingsPanel();
   });
 
-  // Save/apply settings
   if (saveSettings){
     saveSettings.addEventListener('click', () => {
       const settings = {
@@ -47,7 +49,7 @@
         language: (el('language') && el('language').value) || 'auto',
         theme: (settingsForm && settingsForm.querySelector('input[name="theme"]:checked')?.value) || 'dark'
       };
-      try { localStorage.setItem('devant_settings', JSON.stringify(settings)); } catch(e){}
+      try { localStorage.setItem('devant_settings', JSON.stringify(settings)); } catch(e){ console.error(e); }
       applySettings(settings);
       closeSettingsPanel();
     });
@@ -80,7 +82,6 @@
       document.documentElement.style.setProperty('--text','#fff');
       document.documentElement.style.setProperty('--panel-border','rgba(255,255,255,0.06)');
     }
-    // Placeholder: you can implement actual suggestions/safesearch behavior later
   }
 
   function loadSettingsIntoForm(){
@@ -110,7 +111,6 @@
     e.preventDefault();
     const q = el('q')?.value?.trim();
     if(!q) return false;
-    // Example behavior: open Google in a new tab. Replace with your own search URL if desired.
     window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}`, '_blank');
     return false;
   }
@@ -121,10 +121,10 @@
   const logoSvg = el('logoSvg');
   if (logoImg){
     logoImg.addEventListener('error', () => {
+      console.warn('[Devant] logo.png failed to load — using inline SVG fallback');
       logoImg.style.display = 'none';
       if (logoSvg) logoSvg.style.display = 'block';
     });
-    // If already attempted to load and naturalWidth == 0 -> failed
     if (logoImg.complete && logoImg.naturalWidth === 0){
       logoImg.style.display = 'none';
       if (logoSvg) logoSvg.style.display = 'block';
@@ -135,6 +135,5 @@
     if (logoSvg) logoSvg.style.display = 'block';
   }
 
-  // Initialize
   loadSettingsIntoForm();
 })();
