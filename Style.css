@@ -7,6 +7,7 @@
   --panel-border: rgba(255,255,255,0.06);
 }
 
+/* Basic reset */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -18,12 +19,12 @@ body{
   -moz-osx-font-smoothing:grayscale;
 }
 
-/* Top-right settings button */
+/* Top-right settings */
 .topbar{
   position:fixed;
   top:12px;
   right:16px;
-  z-index:30;
+  z-index:100;
 }
 .icon-button{
   background:transparent;
@@ -35,6 +36,85 @@ body{
   border-radius:6px;
 }
 .icon-button:focus{outline:2px solid rgba(255,255,255,0.12)}
+
+/* Settings popover (Google-like compact panel) */
+.settings-panel{
+  display:none;
+  position:fixed;
+  top:56px;
+  right:16px;
+  width:320px;
+  background:var(--panel);
+  color:var(--text);
+  border-radius:8px;
+  border:1px solid var(--panel-border);
+  box-shadow:0 12px 30px rgba(0,0,0,0.6);
+  padding:8px;
+  z-index:110;
+}
+.settings-panel[aria-hidden="false"]{display:block}
+
+.settings-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 12px;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.settings-header h3{
+  margin:0;
+  font-size:16px;
+  font-weight:600;
+}
+.close-btn{
+  background:transparent;
+  border:none;
+  color:var(--text);
+  font-size:16px;
+  cursor:pointer;
+}
+
+/* Settings form */
+.settings-form{padding:10px 8px}
+.setting-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 6px;
+  border-bottom:1px solid rgba(255,255,255,0.02);
+}
+.setting-row label{font-size:14px}
+.setting-row select,
+.setting-row input[type="checkbox"]{
+  background:transparent;
+  color:var(--text);
+  border:1px solid rgba(255,255,255,0.04);
+  padding:6px 8px;
+  border-radius:6px;
+}
+.theme-options label{margin-right:8px; font-size:14px}
+
+/* Buttons */
+.settings-actions{
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+  padding-top:8px;
+}
+.settings-actions button{
+  background:transparent;
+  color:var(--text);
+  border:1px solid rgba(255,255,255,0.06);
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+}
+#saveSettings{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:white;
+}
 
 /* Center layout */
 .center-page{
@@ -49,14 +129,14 @@ body{
 }
 
 /* Logo */
+.logo-wrap{display:block; margin:0 auto;}
 #logo{
-  width:520px;        /* desktop width for your wide logo */
-  max-width:80vw;     /* responsive shrink on small screens */
+  width:620px;
+  max-width:88vw;
   height:auto;
   display:block;
   margin:0 auto;
-  object-fit:contain;
-  /* If your logo PNG has a black background you can keep it; if it has transparency, it will show the page background */
+  filter:drop-shadow(0 8px 24px rgba(0,0,0,0.6));
 }
 
 /* Search form */
@@ -65,7 +145,7 @@ body{
   gap:8px;
   align-items:center;
   justify-content:center;
-  margin-top:4px;
+  margin-top:8px;
 }
 .search-form input[type="search"]{
   width:520px;
@@ -98,9 +178,11 @@ body{
 
 /* Responsive tweaks */
 @media (max-width:720px){
-  #logo{width:420px}
+  #logo{width:480px}
+  .settings-panel{right:10px; width:300px}
 }
 @media (max-width:480px){
-  #logo{width:280px}
+  #logo{width:320px}
   .search-form input[type="search"]{width:100%}
+  .settings-panel{right:8px; width:92vw}
 }
