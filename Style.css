@@ -24,7 +24,7 @@ body{
   position:fixed;
   top:12px;
   right:16px;
-  z-index:120;
+  z-index:999; /* high so it's clickable above the logo */
 }
 .icon-button{
   background:transparent;
@@ -50,7 +50,7 @@ body{
   border:1px solid var(--panel-border);
   box-shadow:0 16px 40px rgba(0,0,0,0.6);
   padding:8px;
-  z-index:130;
+  z-index:1000;
 }
 .settings-panel[aria-hidden="false"]{display:block}
 
@@ -72,7 +72,7 @@ body{
 .settings-actions button{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.06); padding:8px 12px; border-radius:8px; cursor:pointer; }
 #saveSettings{ background:var(--accent); border-color:var(--accent); color:white; }
 
-/* Center layout */
+/* Center layout: add top padding so logo is not overlapped by topbar */
 .center-page{
   min-height:100vh;
   display:flex;
@@ -80,29 +80,26 @@ body{
   align-items:center;
   justify-content:center;
   gap:24px;
-  padding:56px 16px 40px; /* top padding leaves room for the topbar so it doesn't overlap the logo */
+  padding:80px 16px 40px;
   text-align:center;
 }
 
-/* Logo area */
+/* Logo area: scale to container width. Make it large and centered. */
 .logo-wrap{
   width:100%;
-  max-width:1200px;   /* large banner width */
+  max-width:1400px; /* banner width - increase if you want even larger */
   box-sizing:border-box;
   margin:0 auto;
-  padding:8px 16px;    /* space so the topbar doesn't overlap */
+  padding:8px 16px;
 }
 #logoImg{
-  width:100%;
+  width:100%;     /* fills the container */
   height:auto;
   display:block;
   object-fit:contain;
   filter:drop-shadow(0 8px 24px rgba(0,0,0,0.6));
 }
-#logoSvg{
-  width:100%;
-  height:auto;
-}
+#logoSvg{ width:100%; height:auto; }
 
 /* Search form */
 .search-form{
