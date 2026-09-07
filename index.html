@@ -7,37 +7,78 @@
   <link rel="stylesheet" href="Style.css" />
 </head>
 <body>
-  <header class="topbar">
-    <button id="settingsBtn" class="icon-button" aria-label="Open settings" title="Settings">⚙️</button>
+  <header class="topbar" role="banner">
+    <button id="settingsBtn" class="icon-button" aria-haspopup="true" aria-expanded="false" aria-controls="settingsPanel" title="Settings">
+      ⚙️
+    </button>
+
+    <div id="settingsPanel" class="settings-panel" role="dialog" aria-label="Search settings" aria-hidden="true">
+      <div class="settings-header">
+        <h3>Search settings</h3>
+        <button id="closeSettings" class="close-btn" aria-label="Close settings">✖</button>
+      </div>
+
+      <form id="settingsForm" class="settings-form">
+        <div class="setting-row">
+          <label for="suggestions">Search suggestions</label>
+          <input id="suggestions" type="checkbox" />
+        </div>
+
+        <div class="setting-row">
+          <label for="safesearch">SafeSearch</label>
+          <select id="safesearch">
+            <option value="off">Off</option>
+            <option value="moderate">Moderate</option>
+            <option value="strict">Strict</option>
+          </select>
+        </div>
+
+        <div class="setting-row">
+          <label for="language">Search language</label>
+          <select id="language">
+            <option value="auto">Auto-detect</option>
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+          </select>
+        </div>
+
+        <div class="setting-row">
+          <label>Theme</label>
+          <div class="theme-options">
+            <label><input name="theme" type="radio" value="dark" /> Dark</label>
+            <label><input name="theme" type="radio" value="light" /> Light</label>
+          </div>
+        </div>
+
+        <div class="settings-actions">
+          <button id="saveSettings" type="button">Save</button>
+          <button id="cancelSettings" type="button">Cancel</button>
+        </div>
+      </form>
+    </div>
   </header>
 
   <main class="center-page" role="main">
-    <!-- Inline SVG logo: shield + compass + arrow, followed by DEVANT wordmark -->
+    <!-- Inline SVG logo (white on black) to ensure visibility -->
     <div class="logo-wrap" aria-hidden="false">
-      <svg id="logo" width="260" height="120" viewBox="0 0 520 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Devant logo">
-        <g fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-width="8">
-          <!-- Shield outline -->
-          <path d="M130 20 L220 20 L270 46 L270 110 C270 170 210 202 220 214 C210 202 150 170 150 110 L150 46 Z" stroke="#FFFFFF" fill="none" transform="translate(20,10)" />
+      <svg id="logo" viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Devant logo">
+        <!-- shield + arrow -->
+        <g transform="translate(40,10)" fill="none" stroke="#FFFFFF" stroke-width="8">
+          <path d="M120 12 L200 12 L240 36 L240 92 C240 140 200 170 200 170 C200 170 160 140 160 92 L160 36 Z" fill="none" stroke="#FFFFFF"/>
+          <path d="M180 -20 L196 6 L180 0 L164 6 Z" fill="#FFFFFF" stroke="none" transform="translate(40,0)"/>
         </g>
 
-        <!-- Compass rose (center) -->
-        <g transform="translate(170,70)" fill="#FFFFFF" stroke="none">
-          <!-- outer ring cutout -->
-          <circle cx="0" cy="0" r="48" stroke="#FFFFFF" stroke-width="6" fill="none" />
-          <!-- cardinal star (diamond shapes) -->
-          <path d="M0 -62 L14 -6 L62 0 L14 6 L0 62 L-14 6 L-62 0 L-14 -6 Z" fill="#FFFFFF" />
-          <!-- inner negative ring to create cutouts (simulate ring segments) -->
-          <circle cx="0" cy="0" r="22" fill="#000000" />
+        <!-- compass rose (white filled star) -->
+        <g transform="translate(230,90)" fill="#FFFFFF" stroke="none">
+          <circle cx="0" cy="0" r="46" stroke="#FFFFFF" stroke-width="6" fill="none"/>
+          <path d="M0 -68 L18 -8 L72 0 L18 8 L0 68 L-18 8 L-72 0 L-18 -8 Z" fill="#FFFFFF"/>
+          <circle cx="0" cy="0" r="18" fill="#000000"/>
         </g>
 
-        <!-- Vertical arrow extending upward from shield top -->
-        <g transform="translate(110,18)" fill="#FFFFFF">
-          <path d="M2 -8 L10 10 L6 10 L6 46 L-6 46 L-6 10 L-10 10 Z" transform="translate(140,10) rotate(0) scale(1,1)" />
-        </g>
-
-        <!-- Wordmark: DEVANT -->
-        <g transform="translate(320,70)" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="92">
-          <text x="0" y="30">DEVANT</text>
+        <!-- wordmark -->
+        <g transform="translate(430,125)" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="96">
+          <text x="0" y="0">DEVANT</text>
         </g>
       </svg>
     </div>
@@ -49,16 +90,6 @@
     </form>
   </main>
 
-  <!-- Small inline script so page works even if script.js is not present -->
-  <script>
-    function onSearch(e){
-      e.preventDefault();
-      const q = document.getElementById('q').value.trim();
-      if(!q) return false;
-      window.open('https://www.google.com/search?q=' + encodeURIComponent(q), '_blank');
-      return false;
-    }
-    document.getElementById('settingsBtn')?.addEventListener('click', () => alert('Settings panel not yet implemented.'));
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
