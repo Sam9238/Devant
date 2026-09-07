@@ -24,7 +24,7 @@ body{
   position:fixed;
   top:12px;
   right:16px;
-  z-index:100;
+  z-index:120;
 }
 .icon-button{
   background:transparent;
@@ -43,18 +43,17 @@ body{
   position:fixed;
   top:56px;
   right:16px;
-  width:320px;
+  width:340px;
   background:var(--panel);
   color:var(--text);
   border-radius:8px;
   border:1px solid var(--panel-border);
-  box-shadow:0 12px 30px rgba(0,0,0,0.6);
+  box-shadow:0 16px 40px rgba(0,0,0,0.6);
   padding:8px;
-  z-index:110;
+  z-index:130;
 }
 .settings-panel[aria-hidden="false"]{display:block}
 
-/* ... other settings styles remain same ... */
 .settings-header{
   display:flex;
   align-items:center;
@@ -81,20 +80,17 @@ body{
   align-items:center;
   justify-content:center;
   gap:24px;
-  padding:40px 16px;
+  padding:56px 16px 40px; /* top padding leaves room for the topbar so it doesn't overlap the logo */
   text-align:center;
 }
 
-/* Logo fixes:
-   - Use img if present and scale responsively
-   - Ensure no cropping and enough space at top so settings button won't overlap
-*/
+/* Logo area */
 .logo-wrap{
   width:100%;
-  max-width:900px;    /* control max width */
-  padding-top: 8px;   /* avoid overlap with topbar */
+  max-width:1200px;   /* large banner width */
   box-sizing:border-box;
   margin:0 auto;
+  padding:8px 16px;    /* space so the topbar doesn't overlap */
 }
 #logoImg{
   width:100%;
@@ -103,7 +99,10 @@ body{
   object-fit:contain;
   filter:drop-shadow(0 8px 24px rgba(0,0,0,0.6));
 }
-#logoSvg{ width:100%; height:auto; }
+#logoSvg{
+  width:100%;
+  height:auto;
+}
 
 /* Search form */
 .search-form{
@@ -143,12 +142,15 @@ body{
 }
 
 /* Responsive tweaks */
+@media (max-width:900px){
+  .logo-wrap{ max-width:900px; }
+  .settings-panel{ right:12px; width:320px; }
+}
 @media (max-width:720px){
   .logo-wrap{ max-width:720px; }
-  .settings-panel{ right:10px; width:300px; }
 }
 @media (max-width:480px){
   .logo-wrap{ max-width:360px; }
   .search-form input[type="search"]{ width:100%; }
-  .settings-panel{ right:8px; width:92vw }
+  .settings-panel{ right:8px; width:92vw; }
 }
