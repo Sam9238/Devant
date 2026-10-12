@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f0f10">
+  <title>Devant</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand">DEVANT</span>
+    <button class="settings-button" id="settingsButton" type="button" aria-haspopup="dialog" aria-controls="settingsPanel">
+      <span class="gear" aria-hidden="true">⚙</span>
+      <span data-i18n="settings">Settings</span>
+    </button>
+  </header>
+
+  <main>
+    <img class="logo" src="Resources/Logo.png" alt="Devant">
+    <form class="search" action="https://www.google.com/search" method="GET">
+      <input class="type" type="search" name="q" placeholder="Search the web..." aria-label="Search the web" autocomplete="off" required>
+      <button class="press" type="submit" data-i18n="search">Search</button>
+    </form>
+  </main>
+
+  <footer>
+    <p data-i18n="writtenBy">Written by:</p>
+    <a href="https://github.com/dbkad01" target="_blank" rel="noopener noreferrer">@dbkad01</a>
+  </footer>
+
+  <div class="overlay" id="overlay" hidden></div>
+  <section class="settings-panel" id="settingsPanel" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" hidden>
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow" data-i18n="preferences">PREFERENCES</p>
+        <h2 id="settingsTitle" data-i18n="settings">Settings</h2>
+      </div>
+      <button class="close-button" id="closeSettings" type="button" aria-label="Close settings">×</button>
+    </div>
+
+    <div class="setting-row">
+      <div class="setting-copy">
+        <strong data-i18n="appearance">Appearance</strong>
+        <span data-i18n="appearanceDescription">Choose your preferred theme.</span>
+      </div>
+      <div class="segmented" role="group" aria-label="Theme">
+        <button type="button" class="segment" data-theme-choice="light" data-i18n="light">Light</button>
+        <button type="button" class="segment" data-theme-choice="dark" data-i18n="dark">Dark</button>
+      </div>
+    </div>
+
+    <div class="setting-row">
+      <div class="setting-copy">
+        <strong data-i18n="language">Language</strong>
+        <span data-i18n="languageDescription">Choose the interface language.</span>
+      </div>
+      <select id="languageSelect" aria-label="Language">
+        <option value="en">English</option>
+        <option value="vi">Tiếng Việt</option>
+      </select>
+    </div>
+
+    <p class="saved-note" id="savedNote" role="status" aria-live="polite" data-i18n="saved">Your preferences are saved on this device.</p>
+  </section>
+</body>
+</html>
