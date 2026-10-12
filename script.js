@@ -91,6 +91,7 @@ const settingsButton = document.getElementById("settingsButton");
 const closeButton = document.getElementById("closeSettings");
 const panel = document.getElementById("settingsPanel");
 const overlay = document.getElementById("overlay");
+const logoToggle = document.getElementById("logoToggle");
 
 function openSettings() {
   panel.removeAttribute("hidden");
@@ -104,9 +105,16 @@ function closeSettings() {
   settingsButton.focus();
 }
 
+function toggleTheme() {
+  const currentTheme = readPreference("devant-theme", "dark");
+  const newTheme = currentTheme === "light" ? "dark" : "light";
+  applyTheme(newTheme);
+}
+
 settingsButton.addEventListener("click", openSettings);
 closeButton.addEventListener("click", closeSettings);
 overlay.addEventListener("click", closeSettings);
+logoToggle.addEventListener("click", toggleTheme);
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !panel.hasAttribute("hidden")) closeSettings();
 });
