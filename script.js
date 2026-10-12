@@ -53,7 +53,7 @@ function savePreference(key, value) {
 
 function applyTheme(theme) {
   const selected = theme === "light" ? "light" : "dark";
-  root.dataset.theme = selected;
+  root.setAttribute("data-theme", selected);
   root.style.colorScheme = selected;
   document.querySelectorAll("[data-theme-choice]").forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.themeChoice === selected));
@@ -85,14 +85,14 @@ const panel = document.getElementById("settingsPanel");
 const overlay = document.getElementById("overlay");
 
 function openSettings() {
-  panel.hidden = false;
-  overlay.hidden = false;
+  panel.removeAttribute("hidden");
+  overlay.removeAttribute("hidden");
   closeButton.focus();
 }
 
 function closeSettings() {
-  panel.hidden = true;
-  overlay.hidden = true;
+  panel.setAttribute("hidden", "");
+  overlay.setAttribute("hidden", "");
   settingsButton.focus();
 }
 
@@ -100,7 +100,7 @@ settingsButton.addEventListener("click", openSettings);
 closeButton.addEventListener("click", closeSettings);
 overlay.addEventListener("click", closeSettings);
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && !panel.hidden) closeSettings();
+  if (event.key === "Escape" && !panel.hasAttribute("hidden")) closeSettings();
 });
 
 document.querySelectorAll("[data-theme-choice]").forEach((button) => {
@@ -111,5 +111,19 @@ document.getElementById("languageSelect").addEventListener("change", (event) => 
   applyLanguage(event.target.value);
 });
 
-applyTheme(readPreference("devant-theme", "dark"));
-applyLanguage(readPreference("devant-language", "en"));
+// Initialize theme and language on page load
+document.addEventListener("DOMContentLoaded", () => {
+  applyTheme(readPreference("devant-theme", "dark"));
+  applyLanguage(readPreference("devant-language", "en"));
+});
+
+// Fallback initialization if DOMContentLoaded already fired
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => {
+    applyTheme(readPreference("devant-theme", "dark"));
+    applyLanguage(readPreference("devant-language", "en"));
+  });
+} else {
+  applyTheme(readPreference("devant-theme", "dark"));
+  applyLanguage(readPreference("devant-language", "en"));
+}
