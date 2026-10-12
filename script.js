@@ -6,10 +6,6 @@ const translations = {
     search: "Search",
     writtenBy: "Written by:",
     preferences: "PREFERENCES",
-    appearance: "Appearance",
-    appearanceDescription: "Choose your preferred theme.",
-    light: "Light",
-    dark: "Dark",
     language: "Language",
     languageDescription: "Choose the interface language.",
     saved: "Your preferences are saved on this device.",
@@ -22,10 +18,6 @@ const translations = {
     search: "Tìm kiếm",
     writtenBy: "Được tạo bởi:",
     preferences: "TÙY CHỈNH",
-    appearance: "Giao diện",
-    appearanceDescription: "Chọn giao diện bạn muốn sử dụng.",
-    light: "Sáng",
-    dark: "Tối",
     language: "Ngôn ngữ",
     languageDescription: "Chọn ngôn ngữ hiển thị.",
     saved: "Cài đặt đã được lưu trên thiết bị này.",
@@ -54,19 +46,16 @@ function savePreference(key, value) {
 function updateLogoBySrc(theme) {
   const themeLogo = document.getElementById("themeLogo");
   if (themeLogo) {
-    themeLogo.src = theme === "light" ? "Resources/Logo_light.png" : "Resources/Logo_dark.png";
+    themeLogo.src = "Resources/Logo_dark.png";
   }
 }
 
 function applyTheme(theme) {
-  const selected = theme === "light" ? "light" : "dark";
+  const selected = "dark";
   root.setAttribute("data-theme", selected);
   root.style.colorScheme = selected;
-  document.querySelectorAll("[data-theme-choice]").forEach((button) => {
-    button.setAttribute("aria-pressed", String(button.dataset.themeChoice === selected));
-  });
   const metaTheme = document.querySelector('meta[name="theme-color"]');
-  if (metaTheme) metaTheme.content = selected === "light" ? "#f5f5f7" : "#0f0f10";
+  if (metaTheme) metaTheme.content = "#0f0f10";
   updateLogoBySrc(selected);
   savePreference("devant-theme", selected);
 }
@@ -91,7 +80,6 @@ const settingsButton = document.getElementById("settingsButton");
 const closeButton = document.getElementById("closeSettings");
 const panel = document.getElementById("settingsPanel");
 const overlay = document.getElementById("overlay");
-const logoToggle = document.getElementById("logoToggle");
 
 function openSettings() {
   panel.removeAttribute("hidden");
@@ -105,22 +93,11 @@ function closeSettings() {
   settingsButton.focus();
 }
 
-function toggleTheme() {
-  const currentTheme = readPreference("devant-theme", "dark");
-  const newTheme = currentTheme === "light" ? "dark" : "light";
-  applyTheme(newTheme);
-}
-
 settingsButton.addEventListener("click", openSettings);
 closeButton.addEventListener("click", closeSettings);
 overlay.addEventListener("click", closeSettings);
-logoToggle.addEventListener("click", toggleTheme);
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !panel.hasAttribute("hidden")) closeSettings();
-});
-
-document.querySelectorAll("[data-theme-choice]").forEach((button) => {
-  button.addEventListener("click", () => applyTheme(button.dataset.themeChoice));
 });
 
 document.getElementById("languageSelect").addEventListener("change", (event) => {
@@ -129,17 +106,17 @@ document.getElementById("languageSelect").addEventListener("change", (event) => 
 
 // Initialize theme and language on page load
 document.addEventListener("DOMContentLoaded", () => {
-  applyTheme(readPreference("devant-theme", "dark"));
+  applyTheme("dark");
   applyLanguage(readPreference("devant-language", "en"));
 });
 
 // Fallback initialization if DOMContentLoaded already fired
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => {
-    applyTheme(readPreference("devant-theme", "dark"));
+    applyTheme("dark");
     applyLanguage(readPreference("devant-language", "en"));
   });
 } else {
-  applyTheme(readPreference("devant-theme", "dark"));
+  applyTheme("dark");
   applyLanguage(readPreference("devant-language", "en"));
 }
