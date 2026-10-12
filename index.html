@@ -28,7 +28,6 @@
   <footer>
     <p data-i18n="writtenBy">Written by:</p>
     <a href="https://github.com/dbkad01" target="_blank" rel="noopener noreferrer">@dbkad01</a>
-    <img class="footer-collaborator" src="Resources/wynox_collaborator.png" alt="Wynox Collaborator">
   </footer>
 
   <div class="overlay" id="overlay" hidden></div>
@@ -43,6 +42,17 @@
 
     <div class="setting-row">
       <div class="setting-copy">
+        <strong data-i18n="appearance">Appearance</strong>
+        <span data-i18n="appearanceDescription">Choose your preferred theme.</span>
+      </div>
+      <div class="segmented" role="group" aria-label="Theme">
+        <button type="button" class="segment" data-theme-choice="light" data-i18n="light">Light</button>
+        <button type="button" class="segment" data-theme-choice="dark" data-i18n="dark">Dark</button>
+      </div>
+    </div>
+
+    <div class="setting-row">
+      <div class="setting-copy">
         <strong data-i18n="language">Language</strong>
         <span data-i18n="languageDescription">Choose the interface language.</span>
       </div>
@@ -53,6 +63,10 @@
     </div>
 
     <p class="saved-note" id="savedNote" role="status" aria-live="polite" data-i18n="saved">Your preferences are saved on this device.</p>
+
+    <div class="settings-footer">
+      <img class="settings-footer-collaborator" src="Resources/wynox_collaborator.png" alt="Wynox Collaborator">
+    </div>
   </section>
 </body>
 </html>
