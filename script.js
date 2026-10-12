@@ -51,6 +51,13 @@ function savePreference(key, value) {
   }
 }
 
+function updateLogoBySrc(theme) {
+  const themeLogo = document.getElementById("themeLogo");
+  if (themeLogo) {
+    themeLogo.src = theme === "light" ? "Resources/Logo_light.png" : "Resources/Logo_dark.png";
+  }
+}
+
 function applyTheme(theme) {
   const selected = theme === "light" ? "light" : "dark";
   root.setAttribute("data-theme", selected);
@@ -60,6 +67,7 @@ function applyTheme(theme) {
   });
   const metaTheme = document.querySelector('meta[name="theme-color"]');
   if (metaTheme) metaTheme.content = selected === "light" ? "#f5f5f7" : "#0f0f10";
+  updateLogoBySrc(selected);
   savePreference("devant-theme", selected);
 }
 
