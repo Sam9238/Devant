@@ -23,10 +23,12 @@ input.type {
   color: transparent;
   display: block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  align-content: center;
 }
 
 input.press {
   border-radius: 32px;
   color: rgb(0, 255, 0);
   display: block;
+  align-items: center;
 }
