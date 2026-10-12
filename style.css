@@ -17,19 +17,6 @@
   --shadow: 0 24px 80px rgb(0 0 0 / 35%);
 }
 
-:root[data-theme="light"] {
-  color-scheme: light;
-  --bg: #f5f5f7;
-  --surface: #ffffff;
-  --surface-hover: #f0f0f2;
-  --border: #dedee3;
-  --text: #19191b;
-  --muted: #73737c;
-  --accent: #19191b;
-  --accent-text: #ffffff;
-  --shadow: 0 24px 80px rgb(0 0 0 / 12%);
-}
-
 html {
   background-color: var(--bg);
 }
@@ -148,13 +135,23 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
   padding: 24px 16px;
   color: var(--muted);
   font-size: 13px;
 }
 footer a { color: var(--text); text-decoration: none; transition: opacity .2s ease; }
 footer a:hover { opacity: .65; }
+.footer-collaborator {
+  height: 20px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.8;
+  transition: opacity .2s ease;
+}
+.footer-collaborator:hover {
+  opacity: 1;
+}
 
 .overlay {
   position: fixed;
@@ -229,32 +226,6 @@ footer a:hover { opacity: .65; }
 .setting-copy { display: flex; flex-direction: column; gap: 5px; }
 .setting-copy strong { font-size: 14px; font-weight: 600; }
 .setting-copy span { color: var(--muted); font-size: 12px; line-height: 1.4; }
-.segmented {
-  display: flex;
-  flex-shrink: 0;
-  padding: 3px;
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  background: var(--surface);
-}
-.segment {
-  padding: 8px 11px;
-  border: 0;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--muted);
-  font-size: 12px;
-  cursor: pointer;
-  transition: background .15s ease, color .15s ease;
-}
-.segment[aria-pressed="true"] { 
-  background: var(--accent); 
-  color: var(--accent-text); 
-}
-.segment:hover:not([aria-pressed="true"]) { 
-  background: var(--surface-hover); 
-  color: var(--text);
-}
 select {
   max-width: 140px;
   padding: 9px 28px 9px 10px;
@@ -294,7 +265,7 @@ select:focus {
   .logo { width: 130px; margin-bottom: 30px; }
   .search { border-radius: 15px; }
   .press { padding: 0 15px; }
-  footer { padding: 20px 12px; }
+  footer { padding: 20px 12px; gap: 6px; }
   .settings-panel { padding: 22px; }
   .setting-row { align-items: flex-start; flex-direction: column; gap: 12px; }
 }
